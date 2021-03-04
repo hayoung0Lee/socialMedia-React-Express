@@ -1,0 +1,20 @@
+# https://hub.docker.com/_/mysql
+version: "3.1"
+
+services:
+  mysql-db:
+    container_name: social-media-mysql
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: nodejs
+    volumes:
+      - social-media-db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+volumes:
+  social-media-db:
+# docker exec -it mysql-db bash
+# mysql -p
+# use nodejs;
