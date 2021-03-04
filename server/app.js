@@ -6,7 +6,7 @@ const session = require("express-session");
 const dotenv = require("dotenv");
 
 dotenv.config();
-// const apiRouter = require("./routes/api");
+const apiRouter = require("./routes/api");
 
 const app = express();
 app.set("port", process.env.PORT || 8080);
@@ -31,7 +31,7 @@ app.use(
   })
 );
 
-// app.use("/api", apiRouter);
+app.use("/api", apiRouter);
 
 app.get("/", (req, res, next) => {
   res.status(200).send("This is Express Server for Hayoung's Social Media");
@@ -44,9 +44,9 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.locals.message = err.message;
-  res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
-  console.log(res.locals);
+  //   res.locals.message = err.message;
+  //   res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
+  //   console.log(res.locals);
   res.status(err.status || 500).send(`Error Occured - message: ${err.message}`);
 });
 
