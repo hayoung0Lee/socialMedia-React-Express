@@ -4,12 +4,22 @@ const morgan = require("morgan"); //logging
 const path = require("path");
 const session = require("express-session");
 const dotenv = require("dotenv");
+const { sequelize } = require("./models");
 
 dotenv.config();
 const apiRouter = require("./routes/api");
 
 const app = express();
 app.set("port", process.env.PORT || 8080);
+
+sequelize
+  .sync({ force: false })
+  .then(() => {
+    console.log("Successfully connected to DB");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
 
 app.use(morgan("dev"));
 app.use(express.json()); //http://expressjs.com/en/api.html#express.json
