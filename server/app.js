@@ -10,6 +10,7 @@ dotenv.config();
 const apiRouter = require("./routes/api");
 const authRouter = require("./routes/auth");
 const postRouter = require("./routes/post");
+const userRouter = require("./routes/user");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 
@@ -54,6 +55,7 @@ app.use(passport.session());
 app.use("/api", apiRouter);
 app.use("/auth", authRouter);
 app.use("/post", postRouter);
+app.use("/user", userRouter);
 
 app.get("/", (req, res, next) => {
   res.status(200).send("This is Express Server for Hayoung's Social Media");
