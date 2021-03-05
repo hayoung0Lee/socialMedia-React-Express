@@ -4,12 +4,16 @@ const morgan = require("morgan"); //logging
 const path = require("path");
 const session = require("express-session");
 const dotenv = require("dotenv");
-const { sequelize } = require("./models");
+const passport = require("passport");
 
 dotenv.config();
 const apiRouter = require("./routes/api");
+const authRouter = require("./routes/auth");
+const { sequelize } = require("./models");
+const passportConfig = require("./passport");
 
 const app = express();
+passportConfig();
 app.set("port", process.env.PORT || 8080);
 
 sequelize
@@ -41,7 +45,12 @@ app.use(
   })
 );
 
+// authentication
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use("/api", apiRouter);
+app.use("/auth", authRouter);
 
 app.get("/", (req, res, next) => {
   res.status(200).send("This is Express Server for Hayoung's Social Media");

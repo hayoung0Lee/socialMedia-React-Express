@@ -1,4 +1,5 @@
 const express = require("express");
+const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 
 const router = express.Router();
 
@@ -10,11 +11,11 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get("/profile", (req, res) => {
+router.get("/profile", isLoggedIn, (req, res) => {
   res.status(200).send({ title: `My Profile` });
 });
 
-router.get("/join", (req, res) => {
+router.get("/join", isNotLoggedIn, (req, res) => {
   res.status(200).send({ title: `Sign Up` });
 });
 
