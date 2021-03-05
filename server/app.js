@@ -9,6 +9,7 @@ const passport = require("passport");
 dotenv.config();
 const apiRouter = require("./routes/api");
 const authRouter = require("./routes/auth");
+const postRouter = require("./routes/post");
 const { sequelize } = require("./models");
 const passportConfig = require("./passport");
 
@@ -26,6 +27,7 @@ sequelize
   });
 
 app.use(morgan("dev"));
+app.use("/img", express.static(path.join(__dirname, "uploads")));
 app.use(express.json()); //http://expressjs.com/en/api.html#express.json
 
 // app.use(express.urlencoded({extended: false}));
@@ -51,6 +53,7 @@ app.use(passport.session());
 
 app.use("/api", apiRouter);
 app.use("/auth", authRouter);
+app.use("/post", postRouter);
 
 app.get("/", (req, res, next) => {
   res.status(200).send("This is Express Server for Hayoung's Social Media");
